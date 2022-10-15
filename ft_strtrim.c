@@ -15,15 +15,25 @@
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*ptr;
+	size_t	length;
+	size_t	i_set;
+	size_t	is_s1;
 
-	// Calculer la longueur
+	length = ft_strlen(s1);
+	i_set = 0;
+	is_s1 = 0;
+	while (set[i_set])
+	{
 
-	ptr = malloc(sizeof(char) * (length + 1));
+	}
+	ptr = ft_calloc(sizeof(char), length + 1);
 	if (!ptr)
 		return (0);
-
-	// Remplir ptr
-
-
 	return (ptr);
+}
+
+int	main(void)
+{
+	printf("%s", ft_strtrim("1234------", "123"));
+	return (0);
 }
