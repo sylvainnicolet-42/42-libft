@@ -12,39 +12,69 @@
 
 #include "libft.h"
 
+int	ft_check_start(char const *s1, char const *set)
+{
+	int	rm_start;
+	int	i;
+	int	j;
+
+	rm_start = 0;
+	i = 0;
+	j = 0;
+	while (set[i])
+	{
+		if (set[i] == s1[j])
+		{
+			rm_start++;
+			j++;
+			i = 0;
+		}
+		else
+			i++;
+	}
+	return (rm_start);
+}
+
+int	ft_check_end(char const *s1, char const *set, int rm_start)
+{
+	int	rm_end;
+	int	i;
+	int	j;
+
+	rm_end = 0;
+	i = 0;
+	j = ft_strlen(s1) - 1;
+	while (set[i] && rm_start < ft_strlen(s1))
+	{
+		if (set[i] == s1[j])
+		{
+			rm_end++;
+			j--;
+			i = 0;
+		}
+		else
+			i++;
+	}
+	return (rm_end);
+}
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*ptr;
-	size_t	length;
-	size_t	i_s1;
-	size_t	i_set;
+	int		rm_start;
+	int		rm_end;
+	int		i;
 
-	length = ft_strlen(s1);
-	i_s1 = 0;
-	i_set = 0;
-
-	// Tant que s1 n'est pas fini et que is_s1 < longueur de set
-	while (s1[i_s1] && i_s1 < (size_t) ft_strlen(set))
-	{
-		i_set = 0;
-		while (set[i_set])
-		{
-			if (s1[i_s1] == set[i_set + i_s1])
-			{
-				printf("%c\n", s1[i_s1]);
-			}
-			i_set++;
-		}
-		i_s1++;
-	}
-	ptr = ft_calloc(sizeof(char), length + 1);
+	rm_start = ft_check_start(s1, set);
+	rm_end = ft_check_end(s1, set, rm_start);
+	ptr = ft_calloc(sizeof(char), (ft_strlen(s1) - rm_start - rm_end) + 1);
 	if (!ptr)
 		return (0);
+	i = 0;
+	while (i < ft_strlen(s1) - rm_start - rm_end)
+	{
+		ptr[i] = s1[rm_start + i];
+		i++;
+	}
 	return (ptr);
-}
-
-int	main(void)
-{
-	printf("%s", ft_strtrim("1234------", "123"));
-	return (0);
 }
