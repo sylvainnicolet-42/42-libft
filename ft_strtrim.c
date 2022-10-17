@@ -35,11 +35,11 @@ int	ft_check_start(char const *s1, char const *set)
 	return (rm_start);
 }
 
-int	ft_check_end(char const *s1, char const *set, int rm_start)
+int	ft_check_end(char const *s1, char const *set, size_t rm_start)
 {
-	int	rm_end;
-	int	i;
-	int	j;
+	size_t	rm_end;
+	size_t	i;
+	size_t	j;
 
 	rm_end = 0;
 	i = 0;
@@ -61,9 +61,9 @@ int	ft_check_end(char const *s1, char const *set, int rm_start)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*ptr;
-	int		rm_start;
-	int		rm_end;
-	int		i;
+	size_t	rm_start;
+	size_t	rm_end;
+	size_t	i;
 
 	rm_start = ft_check_start(s1, set);
 	rm_end = ft_check_end(s1, set, rm_start);
