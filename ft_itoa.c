@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-int ft_getlength(int n)
+int	ft_getlength(int n)
 {
-	int length;
+	int	length;
 
 	length = 1;
 	if (n < 0)
@@ -51,40 +51,39 @@ int	ft_iterative_power(int nb, int power)
 	return (0);
 }
 
-char	*ft_itoa(int n)
+char	*ft_putnbr(int n, char *ptr, int i)
 {
-	char	*ptr;
-	int 	length;
-	int		i;
-
-	length = ft_getlength(n);
-	printf("l = %d\n", length);
-	printf("n = %d\n", n);
-
-	ptr = ft_calloc(sizeof(char), length);
-	if (!ptr)
-		return (0);
-	i = 0;
-	if (n < 0)
+	if (n == -2147483648)
+		return ("-2147483648");
+	else
 	{
-		ptr[i] = '-';
-		n *= -1;
-		i++;
+		if (n < 0)
+		{
+			ptr[0] = '-';
+			n *= -1;
+		}
+		if (n >= 10)
+			ft_putnbr(n / 10, ptr, i - 1);
+		ptr[i] = n % 10 + '0';
 	}
-	while (n >= 10)
-	{
-		ptr[i] = n / ft_iterative_power(10, (length - 1) - i) + '0';
-		n %= ft_iterative_power(10, (length - 1) - i);
-		i++;
-	}
-	ptr[i] = n + '0';
-
 	return (ptr);
 }
 
-int	main(int argc, char** argv)
+char	*ft_itoa(int n)
 {
-	(void) argc;
-	printf("result = %s\n", ft_itoa(atoi(argv[1])));
-	return (0);
+	char	*ptr;
+	int		length;
+
+	if (n == -2147483648)
+	{
+		ptr = ft_substr("-2147483648", 0, 11);
+		if (!ptr)
+			return (0);
+		return (ptr);
+	}
+	length = ft_getlength(n);
+	ptr = ft_calloc(sizeof(char), length + 1);
+	if (!ptr)
+		return (0);
+	return (ft_putnbr(n, ptr, length - 1));
 }
