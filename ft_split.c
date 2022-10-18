@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-static int	ft_nbpart(char const *s, char c)
+static int	ft_countword(char const *s, char c)
 {
-	int	i;
-	int	count;
+	unsigned int	i;
+	unsigned int	count;
 
 	i = 0;
 	count = 0;
@@ -28,60 +28,50 @@ static int	ft_nbpart(char const *s, char c)
 	return (count);
 }
 
-static int	ft_nbchar(char const *s, char c)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s[i] != c)
-		i++;
-	printf("nbchar = %d\n", i);
-	return (i);
-}
-
-static char	*ft_fillpart(char const *s, char c, int part)
-{
-	char			*str;
-	unsigned int	i;
-	unsigned int	nbchar;
-
-	nbchar = ft_nbchar(s, c);
-	return ("str");
-}
-
 char	**ft_split(char const *s, char c)
 {
 	char			**array;
 	unsigned int	i;
-	unsigned int	nbpart;
+	unsigned int	j;
+	unsigned int	start;
+	size_t			len;
 
-	nbpart = ft_nbpart(s, c);
-	array = ft_calloc(sizeof(char **), nbpart);
+	array = ft_calloc(sizeof(char **), ft_countword(s, c) + 1);
 	if (!array)
 		return (0);
-	// fill array
 	i = 0;
-//	while (i < nbpart)
-//	{
-//		array[i] = ft_fillpart(s, c, i);
-//		i++;
-//	}
+	j = 0;
+	len = 0;
+	while (s[j])
+	{
+		if (s[j] != c)
+		{
+			start = j;
+			while (s[j] != c)
+			{
+				len++;
+				j++;
+			}
+			array[i] = ft_substr(s, start, len);
+			len = 0;
+			i++;
+		}
+		j++;
+	}
 	return (array);
 }
+
 
 int	main(void)
 {
 	int		i;
 	char	**array;
-	char *temp = "---t-ttt--t";
-	printf("Nb mot : %d\n", ft_nbpart(temp, '-'));
-//	array = ft_split("baaabybqbz", 'b');
-//	i = 0;
-//	while (array[i])
-//	{
-//		printf("%s\n", array[i]);
-//		i++;
-//	}
-	return (0);
-}
 
+	array = ft_split("p--y-----h-", '-');
+	i = 0;
+	while (array[i])
+	{
+		printf("%s\n", array[i]);
+		i++;
+	}
+}
