@@ -28,50 +28,55 @@ static int	ft_countword(char const *s, char c)
 	return (count);
 }
 
-char	**ft_split(char const *s, char c)
+static int	ft_countchar(const char *str, unsigned int index, char c)
 {
-	char			**array;
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	start;
-	size_t			len;
+	unsigned int	count;
 
-	array = ft_calloc(sizeof(char **), ft_countword(s, c) + 1);
-	if (!array)
-		return (0);
-	i = 0;
-	j = 0;
-	len = 0;
-	while (s[j])
+	count = 0;
+	while (str[index] != c && str[index] != '\0')
 	{
-		if (s[j] != c)
-		{
-			start = j;
-			while (s[j] != c)
-			{
-				len++;
-				j++;
-			}
-			array[i] = ft_substr(s, start, len);
-			len = 0;
-			i++;
-		}
-		j++;
+		index++;
+		count++;
+	}
+	return (count);
+}
+
+static int	ft_find_next_word(const char *str, unsigned int index, char c)
+{
+	while (str[index] != c && str[index] != '\0')
+		index++;
+	while (str[index] == c && str[index] != '\0')
+		index++;
+	return (index);
+}
+
+static char	**ft_fillarray(char **array, char const *s, char c, int nb_world)
+{
+	int	i;
+	int	start;
+
+	start = 0;
+	i = 0;
+	if (s[0] == c)
+		start = ft_find_next_word(s, start, c);
+	while (i < nb_world)
+	{
+		array[i] = ft_substr(s, start, ft_countchar(s, start, c));
+		start = ft_find_next_word(s, start, c);
+		i++;
 	}
 	return (array);
 }
 
-
-int	main(void)
+char	**ft_split(char const *s, char c)
 {
-	int		i;
 	char	**array;
+	int		nb_world;
 
-	array = ft_split("p--y-----h-", '-');
-	i = 0;
-	while (array[i])
-	{
-		printf("%s\n", array[i]);
-		i++;
-	}
+	nb_world = ft_countword(s, c);
+	array = ft_calloc(nb_world + 1, sizeof(char *));
+	if (!array)
+		return (0);
+	array = ft_fillarray(array, s, c, nb_world);
+	return (array);
 }
