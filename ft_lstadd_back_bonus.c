@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: synicole <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 14:53:48 by synicole          #+#    #+#             */
-/*   Updated: 2022/10/19 14:53:52 by synicole         ###   ########.fr       */
+/*   Created: 2022/10/19 16:07:52 by synicole          #+#    #+#             */
+/*   Updated: 2022/10/19 16:07:54 by synicole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	struct s_list	*current_el;
-	int				size;
 
-	current_el = lst;
-	if (!current_el)
-		return (0);
-	size = 1;
-	while (current_el->next)
+	if (!*lst)
+		*lst = new;
+	else
 	{
-		current_el = current_el->next;
-		size++;
+		current_el = *lst;
+		while (current_el->next)
+			current_el = current_el->next;
+		current_el->next = new;
 	}
-	return (size);
 }
