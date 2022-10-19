@@ -14,7 +14,7 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	struct s_list	*current_el;
+	t_list	*current_el;
 
 	if (!*lst)
 		*lst = new;

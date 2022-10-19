@@ -14,7 +14,7 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	struct s_list	*current_el;
+	t_list	*current_el;
 
 	current_el = lst;
 	if (!current_el)
