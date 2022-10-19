@@ -47,7 +47,11 @@ SRCS	= 	ft_isalpha.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c
 
-OBJS	= ${SRCS:.c=.o}
+SRCS_BONUS	= 	ft_lstnew_bonus.c \
+				ft_lstadd_front_bonus.c
+
+OBJS		= ${SRCS:.c=.o}
+OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
 
 GCC		= gcc
 RM 		= rm -f
@@ -62,6 +66,9 @@ ${NAME}:	${OBJS}
 
 all:		${NAME}
 
+bonus:		${NAME} ${OBJS_BONUS}
+			ar rcs ${NAME} ${OBJS_BONUS}
+
 clean:
 			${RM} ${OBJS}
 
@@ -70,4 +77,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
