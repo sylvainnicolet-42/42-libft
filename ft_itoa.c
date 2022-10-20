@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_getlength(int n)
+static int	ft_getlength(int n)
 {
 	int	length;
 
@@ -30,28 +30,7 @@ int	ft_getlength(int n)
 	return (length);
 }
 
-int	ft_iterative_power(int nb, int power)
-{
-	int	i;
-	int	result;
-
-	i = 0;
-	result = 1;
-	if (power == 0)
-		return (1);
-	if (power > 0)
-	{
-		while (i < power)
-		{
-			result = result * nb;
-			i++;
-		}
-		return (result);
-	}
-	return (0);
-}
-
-char	*ft_putnbr(int n, char *ptr, int i)
+static char	*ft_putnbr(int n, char *ptr, int i)
 {
 	if (n == -2147483648)
 		return ("-2147483648");

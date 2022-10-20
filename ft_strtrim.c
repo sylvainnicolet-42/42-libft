@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_check_start(char const *s1, char const *set)
+static int	ft_check_start(char const *s1, char const *set)
 {
 	int	rm_start;
 	int	i;
@@ -35,7 +35,7 @@ int	ft_check_start(char const *s1, char const *set)
 	return (rm_start);
 }
 
-int	ft_check_end(char const *s1, char const *set, size_t rm_start)
+static int	ft_check_end(char const *s1, char const *set, size_t rm_start)
 {
 	size_t	rm_end;
 	size_t	i;
